@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/* CRITICAL: class-based dark mode for Tailwind v4 + next-themes */
+@variant dark (&:where(.dark, .dark *));
+
+/* Smooth theme transitions */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 350ms;
+  transition-timing-function: ease;
+}
+
+/* Tailwind v4 custom animations */
+@theme {
+  --animate-marquee: marquee 35s linear infinite;
+
+  @keyframes marquee {
+    0%   { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+}
+
+.animate-marquee {
+  animation: var(--animate-marquee);
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Gradient orbs — defined in CSS so dark/light is toggled via .dark class on <html> */
+.bg-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(168, 85, 247, 0.35);
+  border-radius: 20px;
+}
