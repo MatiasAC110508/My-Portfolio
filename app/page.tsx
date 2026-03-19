@@ -39,6 +39,8 @@ const techStack = [
 export default function Home() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [heroHovered, setHeroHovered] = useState(false);
+
   useEffect(() => { setMounted(true); }, []);
   if (!mounted) return null;
 
@@ -48,42 +50,34 @@ export default function Home() {
     <main className={`min-h-screen font-sans selection:bg-purple-400/30 pb-24 relative
       ${isDark ? 'text-neutral-100' : 'text-neutral-800'}`}>
 
-      {/* ─── BACKGROUND ─────────────────────────────────────── */}
+      {/* BACKGROUND */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         {isDark ? (
           <>
             <div className="absolute inset-0 bg-[#07070f]" />
-            {/* Purple crown */}
             <div className="absolute w-[110vw] h-[70vh] top-[-30vh] left-1/2 -translate-x-1/2 rounded-full"
               style={{ background: 'radial-gradient(ellipse, rgba(139,92,246,0.52) 0%, rgba(99,60,200,0.18) 45%, transparent 70%)', filter: 'blur(64px)' }} />
-            {/* Indigo right */}
             <div className="absolute w-[50vw] h-[55vh] top-[-8vh] right-[-8vw] rounded-full"
               style={{ background: 'radial-gradient(ellipse, rgba(99,102,241,0.42) 0%, transparent 65%)', filter: 'blur(72px)' }} />
-            {/* Violet bottom-left */}
             <div className="absolute w-[55vw] h-[55vh] bottom-[-12vh] left-[-8vw] rounded-full"
               style={{ background: 'radial-gradient(ellipse, rgba(109,40,217,0.38) 0%, transparent 65%)', filter: 'blur(80px)' }} />
-            {/* Fuchsia center */}
             <div className="absolute w-[35vw] h-[35vh] top-[45%] left-[32%] rounded-full"
               style={{ background: 'radial-gradient(ellipse, rgba(192,38,211,0.14) 0%, transparent 65%)', filter: 'blur(90px)' }} />
           </>
         ) : (
           <>
-            {/* Light: clean white base, color only at edges */}
             <div className="absolute inset-0 bg-[#fafafa]" />
-            {/* Top lavender glow */}
             <div className="absolute w-[100vw] h-[55vh] top-[-25vh] left-1/2 -translate-x-1/2 rounded-full"
               style={{ background: 'radial-gradient(ellipse, rgba(167,139,250,0.38) 0%, rgba(139,92,246,0.12) 50%, transparent 70%)', filter: 'blur(56px)' }} />
-            {/* Top-right violet */}
             <div className="absolute w-[45vw] h-[45vh] top-[-5vh] right-[-5vw] rounded-full"
               style={{ background: 'radial-gradient(ellipse, rgba(129,140,248,0.28) 0%, transparent 65%)', filter: 'blur(70px)' }} />
-            {/* Bottom-left periwinkle */}
             <div className="absolute w-[50vw] h-[50vh] bottom-[-10vh] left-[-8vw] rounded-full"
               style={{ background: 'radial-gradient(ellipse, rgba(167,139,250,0.22) 0%, transparent 65%)', filter: 'blur(80px)' }} />
           </>
         )}
       </div>
 
-      {/* ─── NAVBAR ─────────────────────────────────────────── */}
+      {/* NAVBAR */}
       <div className="fixed top-0 left-0 right-0 z-50 flex justify-center mt-5 px-4">
         <motion.nav
           initial={{ opacity: 0, y: -16 }}
@@ -91,8 +85,8 @@ export default function Home() {
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className="rounded-full px-3 py-2 flex items-center justify-between w-full max-w-4xl relative overflow-hidden"
           style={{
-            background: isDark ? 'rgba(15,15,25,0.85)' : 'rgba(255,255,255,1)',
-            border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(230,225,255,0.8)',
+            background: isDark ? 'rgb(10,10,18)' : 'rgb(255,255,255)',
+            border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(220,215,255,0.9)',
             boxShadow: isDark
               ? '0 4px 20px rgba(0,0,0,0.3)'
               : '0 4px 20px rgba(139,92,246,0.08)',
@@ -122,7 +116,7 @@ export default function Home() {
         </motion.nav>
       </div>
 
-      {/* ─── CONTENT ─────────────────────────────────────────── */}
+      {/* CONTENT */}
       <div className="max-w-6xl mx-auto pt-36 px-4 md:px-10">
 
         {/* MARQUEE */}
@@ -137,12 +131,10 @@ export default function Home() {
             boxShadow: isDark ? '0 4px 20px rgba(0,0,0,0.3)' : '0 4px 20px rgba(139,92,246,0.07)',
           }}
         >
-          {/* Edge fades */}
           <div className="absolute left-0 top-0 w-20 h-full z-10 rounded-l-2xl pointer-events-none"
             style={{ background: `linear-gradient(to right, ${isDark ? '#07070f' : '#fafafa'}, transparent)` }} />
           <div className="absolute right-0 top-0 w-20 h-full z-10 rounded-r-2xl pointer-events-none"
             style={{ background: `linear-gradient(to left, ${isDark ? '#07070f' : '#fafafa'}, transparent)` }} />
-
           <div className="animate-marquee flex gap-8 items-center w-max px-4">
             {[...techStack, ...techStack, ...techStack].map((tech, i) => (
               <div key={i} className={`flex items-center gap-2.5 px-4 py-2 rounded-full group transition-colors
@@ -161,19 +153,32 @@ export default function Home() {
         {/* BENTO GRID */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[250px]">
 
-          {/* HERO (2×2) */}
-          <BentoWidget isDark={isDark} className="md:col-span-2 md:row-span-2 flex flex-col justify-end relative overflow-hidden !p-0" delay={0.1}>
+          {/* HERO (2x2)
+              - onMouseEnter/Leave on BentoWidget track hover across the full card
+              - The gradient overlay and text use pointer-events-none so they
+                don't intercept mouse events and break the zoom detection */}
+          <BentoWidget
+            isDark={isDark}
+            className="md:col-span-2 md:row-span-2 flex flex-col justify-end relative overflow-hidden !p-0"
+            delay={0.1}
+            onMouseEnter={() => setHeroHovered(true)}
+            onMouseLeave={() => setHeroHovered(false)}
+          >
             <motion.div
               className="absolute inset-0"
-              whileHover={{ scale: 1.04 }}
-              transition={{ duration: 1.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              animate={{ scale: heroHovered ? 1.08 : 1 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              <Image src="/images/MyPhoto.JPG" alt="Matias Aguirre" fill
+              <Image
+                src="/images/MyPhoto.JPG"
+                alt="Matias Aguirre"
+                fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain sm:object-cover object-top" />
+                className="object-cover object-[center_15%]"
+              />
             </motion.div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
-            <div className="relative z-20 p-7">
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
+            <div className="pointer-events-none relative z-20 p-7">
               <h2 className="text-4xl md:text-5xl font-bold mb-2 tracking-tight text-white">Hi, I'm Matias</h2>
               <p className="text-neutral-300 text-base leading-relaxed max-w-sm">
                 Bilingual Full-Stack Developer focused on building intuitive and scalable Frontends.
@@ -181,7 +186,7 @@ export default function Home() {
             </div>
           </BentoWidget>
 
-          {/* PROJECTS (2×2) */}
+          {/* PROJECTS (2x2) */}
           <BentoWidget isDark={isDark} className="md:col-span-2 md:row-span-2 flex flex-col" delay={0.15}>
             <div className="flex items-center gap-2 mb-5">
               <Code2 className={`w-5 h-5 ${isDark ? 'text-purple-400' : 'text-purple-500'}`} />
@@ -189,9 +194,9 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-3 overflow-y-auto pr-1 custom-scrollbar">
               {[
-                { href: 'https://github.com/Riwi-io-Medellin/lummia-integrative-project-thompson', img: '/assets/proyects/Lummia.png',     name: 'Lummia',      desc: 'AI & Gamified Educational Platform' },
-                { href: 'https://github.com/JennLopezDv/TASKCrudAPP.git',                          img: '/assets/proyects/CRUDTask.png',   name: 'CRUDTask',    desc: 'Daily Task Workflow Web App' },
-                { href: 'https://github.com/JennLopezDv/Atenea-Game.git',                          img: '/assets/proyects/ATENEA_GAME.png',name: 'Atenea-Game', desc: 'Interactive Greek mythology web game' },
+                { href: 'https://github.com/Riwi-io-Medellin/lummia-integrative-project-thompson', img: '/assets/proyects/Lummia.png',      name: 'Lummia',      desc: 'AI & Gamified Educational Platform' },
+                { href: 'https://github.com/JennLopezDv/TASKCrudAPP.git',                          img: '/assets/proyects/CRUDTask.png',    name: 'CRUDTask',    desc: 'Daily Task Workflow Web App' },
+                { href: 'https://github.com/JennLopezDv/Atenea-Game.git',                          img: '/assets/proyects/ATENEA_GAME.png', name: 'Atenea-Game', desc: 'Interactive Greek mythology web game' },
               ].map(p => (
                 <a key={p.name} href={p.href} target="_blank" rel="noreferrer"
                   className={`group flex items-center gap-3 p-3 rounded-xl border transition-all duration-200
@@ -213,14 +218,15 @@ export default function Home() {
             </div>
           </BentoWidget>
 
-          {/* BACKEND (2×1) */}
+          {/* BACKEND (2x1) */}
           <BentoWidget isDark={isDark} className="md:col-span-2 md:row-span-1 flex flex-col justify-center" delay={0.2}>
             <div className="flex items-center gap-2 mb-2">
               <Database className={`w-5 h-5 ${isDark ? 'text-purple-400' : 'text-purple-500'}`} />
               <h3 className="font-bold text-lg tracking-tight">Backend Architecture</h3>
             </div>
             <p className={`text-sm leading-relaxed mb-3 ${isDark ? 'text-neutral-300' : 'text-neutral-600'}`}>
-              Scalable systems and robust databases. Complex business logic into efficient <strong className={isDark ? 'text-neutral-100' : 'text-neutral-800'}>relational and non-relational data models</strong>.
+              Scalable systems and robust databases. Complex business logic into efficient{' '}
+              <strong className={isDark ? 'text-neutral-100' : 'text-neutral-800'}>relational and non-relational data models</strong>.
             </p>
             <div className="flex gap-2 flex-wrap">
               {['SQL / NoSQL', 'System Design'].map(tag => (
@@ -230,7 +236,7 @@ export default function Home() {
             </div>
           </BentoWidget>
 
-          {/* FRONTEND (2×1) */}
+          {/* FRONTEND (2x1) */}
           <BentoWidget isDark={isDark} className="md:col-span-2 md:row-span-1 flex flex-col justify-center" delay={0.25}>
             <div className="flex items-center gap-2 mb-2">
               <Layout className={`w-5 h-5 ${isDark ? 'text-purple-400' : 'text-purple-500'}`} />
@@ -247,7 +253,7 @@ export default function Home() {
             </div>
           </BentoWidget>
 
-          {/* HOBBIES (1×1 each) */}
+          {/* HOBBIES */}
           {[
             { icon: Music,    title: 'Musician',   desc: 'I play, produce, and listen to all genres.' },
             { icon: Camera,   title: 'Creator',    desc: 'Content creation and audiovisual photography.' },
