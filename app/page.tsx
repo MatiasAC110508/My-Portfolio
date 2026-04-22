@@ -197,7 +197,7 @@ export default function Home() {
                 { href: 'https://github.com/Riwi-io-Medellin/lummia-integrative-project-thompson', img: '/assets/proyects/Lummia.png',      name: 'Lummia',      desc: 'AI & Gamified Educational Platform' },
                 { href: 'https://github.com/MatiasAC110508/MatchFlow.git',                          img: '/assets/proyects/CRUDTask.png',    name: 'MatchFlow',    desc: 'Daily Task Workflow Web App' },
                 { href: 'https://github.com/MatiasAC110508/Atenea-Game',                          img: '/assets/proyects/ATENEA_GAME.png', name: 'Atenea-Game', desc: 'Interactive Greek mythology web game' },
-                { href: 'https://github.com/MatiasAC110508/EmbeddingAndTransformerTranslator',                          img: '/assets/proyects/EAnsT.png', name: 'Embedding and Transformer Transaltor', desc: 'AI implementation to translate text to a machine understandable vector and transformer' },
+                { href: 'https://github.com/MatiasAC110508/EmbeddingAndTransformerTranslator',                          img: '/assets/proyects/EAndT.png', name: 'Embedding and Transformer Transaltor', desc: 'AI implementation to translate text to a machine understandable vector and transformer' },
               ].map(p => (
                 <a key={p.name} href={p.href} target="_blank" rel="noreferrer"
                   className={`group flex items-center gap-3 p-3 rounded-xl border transition-all duration-200
