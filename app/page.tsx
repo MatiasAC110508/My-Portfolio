@@ -195,8 +195,6 @@ export default function Home() {
             <div className="flex flex-col gap-3 overflow-y-auto pr-1 custom-scrollbar">
               {[
                 { href: 'https://github.com/Riwi-io-Medellin/lummia-integrative-project-thompson', img: '/assets/proyects/Lummia.png',      name: 'Lummia',      desc: 'AI & Gamified Educational Platform' },
-                { href: 'https://github.com/MatiasAC110508/MatchFlow.git', img: '/assets/proyects/CRUDTask.png',    name: 'MatchFlow',    desc: 'Daily Task Workflow Web App' },
-                { href: 'https://github.com/MatiasAC110508/Atenea-Game', img: '/assets/proyects/ATENEA_GAME.png', name: 'Atenea-Game', desc: 'Interactive Greek mythology web game' },
                 { href: 'https://github.com/MatiasAC110508/EmbeddingAndTransformerTranslator', img: '/assets/proyects/EAndT.png', name: 'Embedding and Transformer Transaltor', desc: 'AI implementation to translate text to a machine understandable vector and transformer' },
                 { href: 'https://github.com/MatiasAC110508/PackagementManager.git', img: '/assets/proyects/IronHaul.png', name: 'IronHaul', desc: 'Secure packege managment program' },
               ].map(p => (
