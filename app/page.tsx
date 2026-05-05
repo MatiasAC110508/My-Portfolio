@@ -198,7 +198,7 @@ export default function Home() {
                 { href: 'https://github.com/MatiasAC110508/MatchFlow.git', img: '/assets/proyects/CRUDTask.png',    name: 'MatchFlow',    desc: 'Daily Task Workflow Web App' },
                 { href: 'https://github.com/MatiasAC110508/Atenea-Game', img: '/assets/proyects/ATENEA_GAME.png', name: 'Atenea-Game', desc: 'Interactive Greek mythology web game' },
                 { href: 'https://github.com/MatiasAC110508/EmbeddingAndTransformerTranslator', img: '/assets/proyects/EAndT.png', name: 'Embedding and Transformer Transaltor', desc: 'AI implementation to translate text to a machine understandable vector and transformer' },
-                { href: 'https://github.com/MatiasAC110508/PackagementManager.git',                          img: '/assets/proyects/IronHaul.png', name: 'IronHaul', desc: 'Secure packege managment program },
+                { href: 'https://github.com/MatiasAC110508/PackagementManager.git', img: '/assets/proyects/IronHaul.png', name: 'IronHaul', desc: 'Secure packege managment program' },
               ].map(p => (
                 <a key={p.name} href={p.href} target="_blank" rel="noreferrer"
                   className={`group flex items-center gap-3 p-3 rounded-xl border transition-all duration-200
